@@ -1,0 +1,84 @@
+---
+title: "Airbnb Dataset Analysis"
+author: "Sonali"
+date: "2025-03-30"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Introduction
+
+In this assignment, we are performing a data analysis on an Airbnb dataset using R Programming.  
+The objective of this assignment is to apply basic data manipulation techniques on the dataset.  
+We will perform two tasks:
+1. Reorder the dataset rows in descending order based on a numeric column.
+2. Rename selected column names for better clarity.
+
+##Load Libraries and Dataset
+
+In this section, we will load the required library and the Airbnb dataset.  
+We will use the `dplyr` package for data manipulation and load the dataset from the local folder.
+
+```{r}
+# Install dplyr package (only one time)
+# install.packages("dplyr")
+
+# Load library
+library(dplyr)
+
+# Load dataset
+airbnb_data <- read.csv("Airbnb_Sample.csv.csv", check.names = FALSE)
+
+# View column names
+colnames(airbnb_data)
+```
+
+## Task 1: Reorder Multiple Rows in Descending Order
+
+In this task, we will reorder the rows of the Airbnb dataset in descending order based on the `price` column.  
+This will help us to see the listings with the highest prices at the top of the dataset.
+
+```{r}
+# Reorder rows in descending order by price
+airbnb_sorted <- airbnb_data %>%
+  arrange(desc(price))
+
+# View top 10 rows after sorting
+head(airbnb_sorted, 10)
+```
+
+## Task 2: Rename Some of the Column Names
+
+In this task, we will rename some of the column names in the Airbnb dataset to make them clearer.  
+The following changes will be made:
+- `NAME` will be renamed to `listing_name`
+- `price` will be renamed to `listing_price`
+- `host id` will be renamed to `host_id_number`
+
+```{r}
+# Rename selected column names
+airbnb_renamed <- airbnb_data %>%
+  rename(
+    listing_name = NAME,
+    listing_price = price,
+    host_id_number = `host id`
+  )
+
+# View new column names
+colnames(airbnb_renamed)
+```
+
+## Conclusion
+
+In this assignment, we successfully performed basic data manipulation tasks using R Programming on the Airbnb dataset.  
+We reordered the dataset rows in descending order based on the `price` column and renamed selected column names to improve clarity.
+
+---
+
+  
+

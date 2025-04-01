@@ -1,0 +1,29 @@
+---
+title: "AirbnbData_Analysis"
+author: "Trupti"
+date: "`r Sys.Date()`"
+output: pdf_document
+---
+
+```{r} 
+
+# Set global options for code chunks
+
+knitr::opts_chunk$set(echo = TRUE)
+
+
+library(readr)
+
+#Load the dataset using read_csv from readr
+data <- read_csv("C:/Users/dtrup/OneDrive/Desktop/Airbnb_Open_Data.csv")
+
+# List the variables (columns) in the dataset
+print(colnames(data))
+
+
+# Print the top 15 rows of the dataset
+top_15_rows <- as.data.frame(head(data, 15))
+print(top_15_rows)
+```
+
+

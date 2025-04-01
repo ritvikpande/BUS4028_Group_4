@@ -1,0 +1,43 @@
+---
+title: "Statistical Functions"
+author: "Ritvik Pande"
+date: "2025-03-31"
+output: pdf_document
+---
+
+```{r}
+# Load the ds
+setwd("C:/Users/ritvi/Downloads/Airbnb data")
+airbnb_data <- read.csv("Airbnb_Open_Data.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Converting to numeric
+minimum.nights_1 <- as.numeric(airbnb_data$minimum.nights)
+head(minimum.nights_1)
+```
+
+```{r}
+# Mean of minimum nights
+mean_1 <- mean(minimum.nights_1, na.rm = TRUE)
+print(paste("Mean: ", mean_1))
+
+# Median of minimum nights
+median_1 <- median(minimum.nights_1, na.rm = TRUE)
+print(paste("Median: ", median_1))
+
+# Mode of minimum nights
+mode_1 <- function(x) {
+  uniq_x <- unique(x)
+  uniq_x[which.max(tabulate(match(x, uniq_x)))]
+}
+
+mode_1 <- mode_1(minimum.nights_1)
+print(paste("Mode: ", mode_1))
+
+# Range of minimum nights
+range_1 <- range(minimum.nights_1, na.rm = TRUE)
+range_1_value <- diff(range_1)
+print(paste("Range: ", range_1_value))
+
+```

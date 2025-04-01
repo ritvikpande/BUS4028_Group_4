@@ -1,0 +1,28 @@
+---
+title: "New calculated variable"
+author: "Ritvik Pande"
+date: "2025-03-31"
+output: pdf_document
+---
+```{r}
+# Load the ds
+setwd("C:/Users/ritvi/Downloads/Airbnb data")
+airbnb_data <- read.csv("Airbnb_Open_Data.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Removing the dollar sign and converting to numeric for both columns
+airbnb_data$price <- as.numeric(gsub("[$,]", "", airbnb_data$price))
+airbnb_data$service.fee <- as.numeric(gsub("[$,]", "", airbnb_data$service.fee))
+```
+
+```{r}
+# Performing mathematical calculation and adding to new variable
+airbnb_data$total_unit_price <- airbnb_data$price + airbnb_data$service.fee
+```
+
+```{r}
+# Printing the result
+# Check the result
+head(airbnb_data[, c("price", "service.fee", "total_unit_price")])
+```

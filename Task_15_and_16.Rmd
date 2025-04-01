@@ -1,0 +1,84 @@
+---
+title: "Airbnb Data Analysis - Scatter Plot & Bar Plot"
+author: "Deepak Kumar"
+date: "2025-03-31"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction:
+
+This document explores two aspects of the Airbnb dataset: the relationship between the price of listings and the number of reviews they receive, and the comparison of average prices across different room types. 
+
+## Scatter Plot: Price vs Reviews per Month:
+
+```{r price_vs_reviews_scatter}
+
+library(ggplot2)
+library(dplyr)
+library(scales)
+
+# Load dataset
+Airbnb_Open_Data <- read.csv("Airbnb_Open_Data.csv", check.names = FALSE)
+
+# Clean the 'price' column and create 'price_numeric'
+Airbnb_Open_Data <- Airbnb_Open_Data %>%
+  mutate(price_numeric = gsub("[$,]", "", price),
+         price_numeric = as.numeric(price_numeric))
+
+# create the scatter plot
+ggplot(Airbnb_Open_Data, aes(x = price_numeric, y = `reviews per month`, color = `room type`)) +
+  geom_jitter(alpha = 0.2, width = 10, height = 1) +
+  labs(title = "Scatter plot of Price vs Reviews per Month",
+       x = "Price ($)",
+       y = "Reviews per Month",
+       color = "Room Type") +
+  theme_minimal() +
+  scale_color_manual(values = c("Entire home/apt" = "red",
+                               "Hotel room" = "blue",
+                               "Private room" = "green",
+                               "Shared room" = "black")) +
+  xlim(0, 500) +
+  ylim(0, 50)
+```
+
+## Description of the Scatter Plot:
+
+This scatter plot visualizes the relationship between the price of Airbnb listings and the number of reviews they've received, focusing on listings priced between $0 and $500 and with 0 to 50 reviews per month. Each point represents an individual Airbnb listing, and the color of the point indicates the type of room being offered: red for entire homes/apartments, blue for hotel rooms, green for private rooms, and black for shared rooms. The points are slightly jittered to help distinguish listings with similar price and review counts, especially in densely populated areas of the plot.
+
+## Bar Plot: Average Price per Room Type:
+
+```{r pressure, echo=FALSE}
+library(ggplot2)
+library(dplyr)
+library(scales)
+
+
+# Calculate the average price per room type
+average_price_per_room_type <- Airbnb_Open_Data %>%
+  group_by(`room type`) %>%
+  summarise(average_price = mean(price_numeric, na.rm = TRUE))
+
+# The bar plot with price labels on top
+ggplot(average_price_per_room_type, aes(x = `room type`, y = average_price, fill = `room type`)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = scales::dollar(average_price)), vjust = -0.5) + # Add text labels
+  scale_fill_brewer(palette = "Paired") + # Using a color brewer palette for better aesthetics
+  labs(title = "Average Price per Room Type",
+       x = "Room Type",
+       y = "Average Price ($)",
+       fill = "Room Type") +
+  theme_minimal() +
+  scale_y_continuous(labels = scales::dollar_format())
+```
+
+## Description of the Bar Plot:
+
+This bar plot displays the average price for different types of Airbnb listings: Entire home/apt, Hotel room, Private room, and Shared room. The height of each bar represents the average price in dollars, with the exact average price shown as a label above each bar. The colors differentiate the room types, as indicated by the legend on the right. This visualization allows for a quick comparison of the average listing price across different accommodation types.
+
+## Conclusion:
+
+This analysis provides insights into the relationship between listing price and reviews, as well as the average prices for different room types on Airbnb.

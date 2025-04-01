@@ -1,0 +1,32 @@
+---
+title: "Pearson Correlation"
+author: "Ritvik Pande"
+date: "2025-03-31"
+output: pdf_document
+---
+
+```{r}
+# Load the ds
+setwd("C:/Users/ritvi/Downloads/Airbnb data")
+airbnb_data <- read.csv("Airbnb_Open_Data.csv", stringsAsFactors = FALSE)
+```
+
+```{r}
+# Converting to numeric
+Construction.year_1 <- as.numeric(airbnb_data$Construction.year)
+head(Construction.year_1)
+
+review.rate.number_1 <- as.numeric(airbnb_data$review.rate.number)
+head(review.rate.number_1)
+```
+
+```{r}
+
+# Pearson correlation between property Construction year and Review ratings
+correlation_value <- cor(Construction.year_1, review.rate.number_1, use = "complete.obs", method = "pearson")
+
+# Print the correlation value
+print(paste("Pearson Correlation: ", correlation_value))
+
+```
+

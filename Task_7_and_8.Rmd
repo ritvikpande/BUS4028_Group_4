@@ -1,0 +1,73 @@
+---
+title: "AirbnbDataset_Analysis"
+author: "Sohini Biswas"
+date: "2025-03-30"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+
+# AUTHOR - SOHINI BISWAS
+
+setwd("C:\\Users\\sohin\\Downloads")
+
+getwd()
+
+airbnb_data <- read.csv("airbnb_Data.csv", check.names = FALSE)
+
+#   TASK 1 : Remove Missing Values in the Dataset
+#   Check for missing values in each column
+missing_values_per_column <- colSums(is.na(airbnb_data))
+print("Missing values per column:")
+print(missing_values_per_column)
+
+#   Total missing values in the entire dataset
+total_missing_values <- sum(is.na(airbnb_data))
+print(paste("Total missing values:", total_missing_values))
+
+#   Remove rows with any missing values
+airbnb_cleaned_rows <- na.omit(airbnb_data)
+
+#   Remove columns with any missing values
+airbnb_cleaned_cols <- airbnb_data[, colSums(is.na(airbnb_data)) == 0]
+
+#   TASK 2 : Identify and remove Duplicate Values in the Dataset
+#   Identify duplicate rows
+duplicate_rows <- duplicated(airbnb_data)
+
+#   Count the number of duplicate rows
+number_of_duplicate_rows <- sum(duplicate_rows)
+print(paste("Number of duplicate rows:", number_of_duplicate_rows))
+
+#   View the duplicate rows
+print("Duplicate rows:")
+print(airbnb_data[duplicate_rows, ])
+
+#   Remove duplicate rows
+airbnb_unique <- airbnb_data[!duplicate_rows, ]
+
+#   Verify removal by counting rows before and after
+print(paste("Number of rows before removing duplicates:", nrow(airbnb_data)))
+print(paste("Number of rows after removing duplicates:", nrow(airbnb_unique))
+
+

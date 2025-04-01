@@ -1,0 +1,36 @@
+---
+title: "Task 6"
+author: "Abdul Ali"
+date: "2025-04-01"
+output: pdf_document
+---
+
+```{r}
+
+## Task 2: Identify Variables and Reshape the Data
+
+# Load the necessary libraries
+library(dplyr)
+
+# Set working directory and load the dataset
+setwd("C:/Users/ritvi/Downloads/Airbnb data")
+airbnb_data <- read.csv("Airbnb_Open_Data.csv", stringsAsFactors = FALSE)
+
+# Convert price to numeric
+airbnb_data$price <- gsub("\\$", "", airbnb_data$price)  # Remove $
+airbnb_data$price <- gsub(",", "", airbnb_data$price)    # Remove commas
+airbnb_data$price <- as.numeric(airbnb_data$price)       # Convert to number
+
+# Select variables and remove NA
+selected_data <- airbnb_data %>%
+  select(price, Construction.year, room.type, number.of.reviews, country) %>%
+  na.omit()
+
+# Reshape data - average price by room type and country
+reshaped_data <- selected_data %>%
+  group_by(room.type, country) %>%
+  summarise(Average_Price = mean(price, na.rm = TRUE), .groups = "drop")
+
+# Display the first few rows
+head(reshaped_data)
+```

@@ -1,0 +1,60 @@
+---
+title: "Airbnb Data Analysis - Taining set using random number generator engine & Summary statistics"
+author: "Aneesh"
+date: "2025-03-31"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Introduction:
+
+This document demonstrates how to create a training set from the Airbnb dataset using a random number generator engine and provides summary statistics of the dataset.
+
+## Create Training and Test Sets:
+
+```{r Traning and Test Sets}
+
+library(dplyr) # Load dplyr if you haven't already
+
+# Load dataset
+Airbnb_Open_Data <- read.csv("Airbnb_Open_Data.csv", check.names = FALSE)
+
+# Clean the 'price' column and create 'price_numeric'
+Airbnb_Open_Data <- Airbnb_Open_Data %>%
+  mutate(price_numeric = gsub("[$,]", "", price),
+         price_numeric = as.numeric(price_numeric))
+
+# Determine the training set size (e.g., 70% for training)
+set.seed(123) # For reproducibility
+train_size <- floor(0.70 * nrow(Airbnb_Open_Data))
+train_indices <- sample(1:nrow(Airbnb_Open_Data), train_size)
+
+# Create the training set
+train_data <- Airbnb_Open_Data[train_indices, ]
+
+# Create the test set
+test_data <- Airbnb_Open_Data[-train_indices, ]
+
+# Verify the number of rows in each set
+cat("Number of rows in training set:", nrow(train_data), "\n")
+cat("Number of rows in test set:", nrow(test_data), "\n")
+cat("Number of rows in test set:", nrow(test_data), "\n")
+```
+
+## Summary Statistics:
+
+```{r pressure, echo=FALSE}
+# Print summary statistics for the entire dataset
+summary(Airbnb_Open_Data)
+```
+
+## Description of Create Training, Test Sets and Summary Statistics :
+
+The code first loads the Airbnb dataset and prepares it for analysis by cleaning the price data. It then splits the data into training and test sets using a random selection process. The training set will be used to build a machine learning model, while the test set will be used to evaluate its performance. Finally, the summary() function is used to display descriptive statistics for all columns in the original dataset, providing an overview of its distribution and characteristics.
+
+## Conclusion:
+
+In conclusion, the code performs essential data preparation steps on the Airbnb dataset. The price data is cleaned, and the dataset is split into training and testing sets to facilitate model development and evaluation. The summary statistics offer key insights into the dataset’s characteristics.

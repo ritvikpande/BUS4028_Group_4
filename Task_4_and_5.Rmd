@@ -1,0 +1,56 @@
+---
+Title: "Task 4 - AirBnb Data Analysis"
+Author: Akshat Singh
+Date: "2025-03-31"
+Output:
+  pdf_document: default
+    df_print: paged
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is Task 4 of the AirBnb Data Analysis our group has been conducting. In this task we had to choose a variable of our choice from the dataset and define a user defined function for the same variable.
+
+We have used the Construction Year as our variable to print information of all the propertied listed and constructed after 2020.
+
+Below is the code for the same Task.
+
+```{r cars}
+getwd()
+Airbnb_Open_Data <- read.csv("/cloud/project/Airbnb_Open_Data.csv", header=FALSE)
+recent_properties <- as.numeric(Airbnb_Open_Data$V15)
+recent_properties <- Airbnb_Open_Data[Airbnb_Open_Data$V15 > 2020, ]
+print(recent_properties)
+
+```
+
+**Title: "Task 5 - AirBnb Data Analysis"**
+
+In this task we were supposed to filter data regarding cancellation policy based on the location of the property.
+
+For this output we had set a condition for Brooklyn and hence it showed us the date of the property as well as the cancellation policy of the particular BnB.
+
+The code for the function is given below.
+
+```{r cars2}
+install.packages("dplyr")
+library(dplyr)
+Airbnb_Open_Data$V15 <- as.numeric(Airbnb_Open_Data$V15)
+brooklyn_new_properties <- Airbnb_Open_Data %>%
+  filter(Airbnb_Open_Data$V15 > 2010, Airbnb_Open_Data$V6 == "Brooklyn") %>%
+  select(V15,V13)
+print(brooklyn_new_properties)
+```
+
+## Including Plots
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
